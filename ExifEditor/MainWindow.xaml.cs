@@ -91,9 +91,14 @@ namespace ExifEditor
             }
 
             start.IsEnabled = false;
+            launch(pathfolder.Text);
             Dispatcher.Invoke(() => { logs.Text = "开始处理···"; });
-            save();
 
+        }
+
+        private void launch(string path,bool isFolder = true)
+        {
+            save();
             // 转换所有中文参数为 HTML 字符
             string htmlTitle = ConvertToHtmlEntities(title.Text);
             string htmlSoft = ConvertToHtmlEntities(soft.Text);
@@ -102,14 +107,26 @@ namespace ExifEditor
 
             process = new Process();
             process.StartInfo.FileName = Path.Combine(Directory.GetCurrentDirectory(), "exiftool.exe");
-            process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E " +
+            if (isFolder)
+            {
+                process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E " +
                                            $"-Title=\"{htmlTitle}\" " +
                                            $"-Software=\"{htmlSoft}\" " +
                                            $"-Description=\"{htmlDes}\" " +
                                            $"-Comment=\"{htmlComment}\" " +
-                                           $"\"{pathfolder.Text}\"";
+                                           $"\"{path}\"";
+            }
+            else
+            {
+                process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E " +
+                                           $"-Title=\"{htmlTitle}\" " +
+                                           $"-Software=\"{htmlSoft}\" " +
+                                           $"-Description=\"{htmlDes}\" " +
+                                           $"-Comment=\"{htmlComment}\" " +
+                                           $"{path}";
+            }
 
-            process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
+           process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
@@ -122,8 +139,9 @@ namespace ExifEditor
             {
                 Dispatcher.Invoke(() => {
                     string log = $"\n{e.Data?.Replace("directories scanned", "个文件夹被扫描了").Replace("image files updated", "个图片文件信息被成功更新！") ?? ""}";
-                    if(log != "\n") { 
-                    logs.Text += $"\n[ExifTool]{e.Data?.Replace("directories scanned", "个文件夹被扫描了").Replace("image files updated", "个图片文件信息被成功更新！") ?? ""}";
+                    if (log != "\n")
+                    {
+                        logs.Text += $"\n[ExifTool]{e.Data?.Replace("directories scanned", "个文件夹被扫描了").Replace("image files updated", "个图片文件信息被成功更新！") ?? ""}";
                     }
                 });
             };
@@ -164,5 +182,36 @@ namespace ExifEditor
             Config.Write("comment", comment.Text);
             Config.Write("path", pathfolder.Text);
         }
+
+        private void imgs_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Length > 0)
+            {
+                string allFiles = "";
+                logs.Text=($"拖入了 {files.Length} 个文件,开始处理···");
+
+                // 逐个处理文件
+                foreach (string filePath in files)
+                {
+                    if(filePath.EndsWith(".jpg") || filePath.EndsWith(".png"))
+                    {
+                        allFiles = $"{allFiles} \"{filePath}\"";
+                        logs.Text += $"\n[传入文件路径]{filePath}";
+                    }
+                    else
+                    {
+                        logs.Text += $"\n[无效图片]文件 {filePath} 不是有效的图片文件，已跳过。";
+                    }
+                }
+                start.IsEnabled = false;
+                launch(allFiles,false);
+            }
+            else
+            {
+                MessageBox.Show("未检测到有效文件拖放");
+            }
+            e.Handled = true;
+        }
+
     }
 }

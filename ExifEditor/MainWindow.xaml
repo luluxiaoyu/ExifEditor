@@ -26,7 +26,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <ui:Card BorderThickness="0">
+                        <ui:Card BorderThickness="0"  AllowDrop="True" Drop="imgs_Drop">
                             <ui:Card.Background>
                                 <SolidColorBrush Color="#B3FFFFFF" Opacity="0.5"/>
                             </ui:Card.Background>
@@ -73,8 +73,9 @@
                                 </hc:TextBox>
                                 <Button Margin="5,0,0,0" Content="选择文件夹" x:Name="selfolder" Click="selfolder_Click"/>
                             </StackPanel>
+                                <TextBlock Margin="10" Text="可以直接把图片文件拖到这里哦~" VerticalAlignment="Center" Foreground="Gray"/>
 
-                        </WrapPanel>
+                            </WrapPanel>
                         </ui:Card>
                     </Grid>
                     <Grid Grid.Row="1">
@@ -84,8 +85,8 @@
                         <Button  Margin="5,5,0,5" HorizontalAlignment="Stretch" Content="开始处理" x:Name="start" Style="{StaticResource ButtonPrimary}" Click="start_Click"/>
                     </Grid>
 
-                    <Grid Grid.Row="2">
-                        <hc:TextBox x:Name="logs" BorderThickness="0" Text="处理后会覆盖源文件哦 请注意保存源文件&#13;只会处理选中的文件夹，子文件不会处理嗷~" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top">
+                    <Grid Grid.Row="2" >
+                        <hc:TextBox   x:Name="logs" BorderThickness="0" Text="处理后会覆盖源文件哦 请注意保存源文件&#13;只会处理选中的文件夹，子文件不会处理嗷~" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top">
                             <hc:TextBox.Background>
                                 <SolidColorBrush Color="White" Opacity="0.5"/>
                             </hc:TextBox.Background>
