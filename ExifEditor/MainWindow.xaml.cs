@@ -114,7 +114,7 @@ namespace ExifEditor
             process.StartInfo.FileName = Path.Combine(Directory.GetCurrentDirectory(), "exiftool.exe");
             if (isFolder)
             {
-                process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E " +
+                process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E -all= " +
                                            $"-Title=\"{htmlTitle}\"  -Source=\"{ConvertToHtmlEntities(source.Text)}\" " +
                                            $"-Software=\"{htmlSoft}\" " +
                                            $"-Description=\"{htmlDes}\" " +
@@ -123,7 +123,7 @@ namespace ExifEditor
             }
             else
             {
-                process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E " +
+                process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E -all= " +
                                            $"-Title=\"{htmlTitle}\" -Source=\"{ConvertToHtmlEntities(source.Text)}\" " +
                                            $"-Software=\"{htmlSoft}\" " +
                                            $"-Description=\"{htmlDes}\" " +
