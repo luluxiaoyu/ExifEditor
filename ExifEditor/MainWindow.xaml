@@ -64,7 +64,15 @@
                                     </hc:TextBox.Background>
                                 </hc:TextBox>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <TextBlock  Text="来源Source" VerticalAlignment="Center"/>
+                                    <hc:TextBox BorderThickness="0" MinWidth="150" Margin="5,0,0,0" x:Name="source" Text="不知道喵">
+                                        <hc:TextBox.Background>
+                                            <SolidColorBrush Color="White" Opacity="0.5"/>
+                                        </hc:TextBox.Background>
+                                    </hc:TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
                                 <TextBlock Text="处理目标文件夹" VerticalAlignment="Center"/>
                                 <hc:TextBox BorderThickness="0" MinWidth="300" Margin="5,0,0,0" x:Name="pathfolder">
                                     <hc:TextBox.Background>

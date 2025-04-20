@@ -62,6 +62,11 @@ namespace ExifEditor
             {
                 pathfolder.Text = Config.Read("path");
             }
+            if (Config.Read("source") != "")
+            {
+                source.Text = Config.Read("source");
+            }
+
         }
 
         private string ConvertToHtmlEntities(string input)
@@ -110,7 +115,7 @@ namespace ExifEditor
             if (isFolder)
             {
                 process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E " +
-                                           $"-Title=\"{htmlTitle}\" " +
+                                           $"-Title=\"{htmlTitle}\"  -Source=\"{ConvertToHtmlEntities(source.Text)}\" " +
                                            $"-Software=\"{htmlSoft}\" " +
                                            $"-Description=\"{htmlDes}\" " +
                                            $"-Comment=\"{htmlComment}\" " +
@@ -119,7 +124,7 @@ namespace ExifEditor
             else
             {
                 process.StartInfo.Arguments = $"-charset UTF8 -ext jpg -ext png -overwrite_original -E " +
-                                           $"-Title=\"{htmlTitle}\" " +
+                                           $"-Title=\"{htmlTitle}\" -Source=\"{ConvertToHtmlEntities(source.Text)}\" " +
                                            $"-Software=\"{htmlSoft}\" " +
                                            $"-Description=\"{htmlDes}\" " +
                                            $"-Comment=\"{htmlComment}\" " +
@@ -181,6 +186,7 @@ namespace ExifEditor
             Config.Write("des", des.Text);
             Config.Write("comment", comment.Text);
             Config.Write("path", pathfolder.Text);
+            Config.Write("source", source.Text);
         }
 
         private void imgs_Drop(object sender, DragEventArgs e)
