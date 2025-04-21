@@ -1,22 +1,28 @@
-﻿<Window x:Class="ExifEditor.MainWindow"
+﻿<ui:FluentWindow x:Class="ExifEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ExifEditor" WindowStyle="None"
+        xmlns:local="clr-namespace:ExifEditor"
         xmlns:hc="https://handyorg.github.io/handycontrol"
-        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" Style="{StaticResource UiWindow}"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="图片Exif处理小工具 by (◍•ᴗ•◍)" Height="720" Width="1280" Icon="/res/bailu.ico" Initialized="Window_Initialized">
-    <Window.Background>
-        <ImageBrush ImageSource="/res/nahida-act.png" Stretch="UniformToFill"/>
-    </Window.Background>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ui:TitleBar Grid.Row="0"  Title="图片Exif处理小工具 by (◍•ᴗ•◍)"  Icon="/res/bailu.ico" />
+        <Grid.Background>
+            <ImageBrush ImageSource="/res/nahida-act.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <ui:TitleBar Grid.Row="0" Title="图片Exif处理小工具 by (◍•ᴗ•◍)"  >
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon Source="/res/bailu.ico"/>
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
         <Grid Grid.Row="1">
             <hc:ScrollViewer>
                 <Grid Margin="10">
@@ -94,7 +100,7 @@
                     </Grid>
 
                     <Grid Grid.Row="2" >
-                        <hc:TextBox   x:Name="logs" BorderThickness="0" Text="处理后会覆盖源文件哦 请注意保存源文件&#13;只会处理选中的文件夹，子文件不会处理嗷~" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top">
+                        <hc:TextBox Padding="6"  x:Name="logs" BorderThickness="0" Text="处理后会覆盖源文件哦 请注意保存源文件&#13;只会处理选中的文件夹，子文件不会处理嗷~" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top">
                             <hc:TextBox.Background>
                                 <SolidColorBrush Color="White" Opacity="0.5"/>
                             </hc:TextBox.Background>
@@ -104,4 +110,4 @@
             </hc:ScrollViewer>
         </Grid>
     </Grid>
-</Window>
+</ui:FluentWindow>
